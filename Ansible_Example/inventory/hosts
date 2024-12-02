@@ -1,0 +1,11 @@
+[control]
+ansible-control ansible_host=192.168.1.10 ansible_connection=local
+
+[webservers]
+web-server ansible_host=192.168.1.11 ansible_user=ubuntu
+
+[dbservers]
+db-server ansible_host=192.168.1.12 ansible_user=ubuntu
+
+[all:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

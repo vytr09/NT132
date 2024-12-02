@@ -1,0 +1,67 @@
+---
+- hosts: dbservers
+  become: yes
+  tasks:
+    - name: Install MySQL and dependencies
+      apt:
+        name: 
+          - mysql-server
+          - python3-pymysql
+        state: present
+
+    - name: Ensure MySQL is running
+      systemd:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Set MySQL root password
+      mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        user: root
+        password: "{{ mysql_root_password }}"
+        login_user: root
+        login_password: ''
+        check_implicit_admin: yes
+        state: present
+
+    - name: Create application database
+      mysql_db:
+        name: "{{ db_name }}"
+        state: present
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+
+    - name: Create database user
+      mysql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_password }}"
+        priv: "{{ db_name }}.*:ALL"
+        state: present
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+
+    - name: Copy database SQL file
+      copy:
+        src: "../database.sql"
+        dest: /tmp/database.sql
+        mode: '0644'
+
+    - name: Import database
+      mysql_db:
+        name: "{{ db_name }}"
+        state: import
+        target: /tmp/database.sql
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+
+    - name: Configure database connection in config.php
+      template:
+        src: ../templates/config.php.j2
+        dest: "{{ project_root }}/config.php"
+      delegate_to: webservers
+
+    - name: Remove temporary SQL file
+      file:
+        path: /tmp/database.sql
+        state: absent

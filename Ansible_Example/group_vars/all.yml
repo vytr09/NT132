@@ -1,0 +1,13 @@
+---
+# Project-specific variables
+project_name: ecommerce-webapp
+project_root: /var/www/html/{{ project_name }}
+
+# Database Configuration
+db_name: ecommerce_db
+db_user: ecommerce_user
+db_password: 'SecureDBPassword123!'
+
+# PHP and Web Server Configuration
+php_version: 7.4
+web_server: apache2
