@@ -35,9 +35,11 @@
 
     - name: Clone E-commerce Application
       git:
-        repo: 'https://github.com/yourusername/ecommerce-webapp.git'
+        repo: 'https://github.com/vytr09/NT132.git'
         dest: "{{ project_root }}"
         version: main
+        sparse-checkout:
+          - Website/
       become_user: www-data
 
     - name: Configure Apache Virtual Host

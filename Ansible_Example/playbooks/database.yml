@@ -43,7 +43,7 @@
 
     - name: Copy database SQL file
       copy:
-        src: "../database.sql"
+        src: "../../DataBase/shop.sql"
         dest: /tmp/database.sql
         mode: '0644'
 
@@ -58,7 +58,7 @@
     - name: Configure database connection in config.php
       template:
         src: ../templates/config.php.j2
-        dest: "{{ project_root }}/config.php"
+        dest: "{{ project_root }}/admin/connect.php"
       delegate_to: webservers
 
     - name: Remove temporary SQL file

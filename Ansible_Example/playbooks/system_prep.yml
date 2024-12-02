@@ -7,21 +7,6 @@
         name: openssh-server
         state: present
 
-    - name: Create ansible management group
-      group:
-        name: ansibleadmin
-        state: present
-
-    - name: Create ansible management user
-      user:
-        name: ansibleadmin
-        group: ansibleadmin
-        groups: sudo
-        append: yes
-        state: present
-        createhome: yes
-        shell: /bin/bash
-
   tasks:
     - name: Update system packages
       apt:
