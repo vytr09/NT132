@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `Email`, `FullName`, `GroupID`, `TrustStatus`, `RegStatus`, `Date`, `avatar`) VALUES
 (1, 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Admin@gmail.com', 'Admin Admin', 1, 1, 1, '2020-08-27', 'default.png'),
-(2, 'LMask', 'e9d155e1e377fed9a68863896a49308449f5b5f9', 'aymandebzi723@gmail.com', 'Aymane Debzi', 0, 0, 1, '2020-08-27', '7809775163_unnamed.jpg');
 
 -- --------------------------------------------------------
 -- Table structure for table `categories`
@@ -55,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `categories` (`ID`, `Name`, `Description`, `parent`, `Ordering`, `Visibility`, `Allow_Comment`, `Allow_Ads`) VALUES
-(1, 'Accessoires', 'Mobile and PC Accessories', 0, 1, 0, 0, 0),
+(1, 'Accessories', 'Mobile and PC Accessories', 0, 1, 0, 0, 0),
 (2, 'PC Desktop', '', 0, 1, 0, 0, 0),
 (3, 'PC Portable', '', 0, 1, 0, 0, 0),
 (4, 'Smartphones', '', 0, 1, 0, 0, 0),
@@ -84,13 +83,6 @@ CREATE TABLE IF NOT EXISTS `items` (
   CONSTRAINT `member_1` FOREIGN KEY (`Member_ID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `items` (`Item_ID`, `Name`, `Description`, `Price`, `Add_Date`, `Country_Made`, `Status`, `Rating`, `Approve`, `Cat_ID`, `Member_ID`, `picture`, `contact`) VALUES
-(1, 'Gaming Chair DXRacer', 'A new gaming chair from DXRacer company, high quality', '350', '2020-08-28', 'Maroc', '1', 0, 1, 1, 2, '9043072703_619sWFsXJ+L._AC_SY879_.jpg', ''),
-(2, 'Keyboard', 'Keyboard with blue switch RGB', '30', '2020-08-28', 'Maroc', '1', 0, 1, 1, 2, '9132677317_pro-x-keyboard-gallery-1.png', ''),
-(3, 'PC Portable', 'i7 9th gen, 12GB RAM, dual graphics card Predator, 17" screen', '1900', '2020-08-28', 'Maroc', '2', 0, 1, 3, 2, '1183001430_raw.jpg', '0612564852'),
-(4, 'PC Desktop', 'PC desktop for gamers', '800', '2020-08-28', 'Maroc', '2', 0, 1, 2, 2, '2118289353_tgf-PC.jpg', '0613357700'),
-(15, 'Midnight Sun', 'This is not a physical book, it\'s an e-version', '5', '2020-08-28', 'France', '2', 0, 1, 5, 2, '8719133711_midnight_sun.jpg', '0613774702');
-
 -- --------------------------------------------------------
 -- Table structure for table `comments`
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -106,10 +98,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `comment_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `items_comment` FOREIGN KEY (`item_id`) REFERENCES `items` (`Item_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `comments` (`c_id`, `comment`, `status`, `comment_date`, `item_id`, `user_id`) VALUES
-(1, 'I love this keyboard', 1, '2020-08-28', 2, 2),
-(9, 'This is a good book, thank you', 1, '2020-08-28', 15, 2);
 
 COMMIT;
 
